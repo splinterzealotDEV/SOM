@@ -91,14 +91,14 @@ public class Aprendizaje {
     public void imprimirRespuesta(Colores[] res)
     {
         int filas=800/res.length;
-        int col=600/res.length;
+        int col=600;
         Mat im=new Mat(800,600, CvType.CV_8UC3);
         int conti=1,contj=1;
         for(c=0;c<res.length;c++)
         {
             for (int i = c*filas; i < filas*conti; i++)
             {
-                for (int j = c*col;j<col*contj;j++)
+                for (int j =0;j<col;j++)
                 {
                     double data[]=im.get(i,j);
                     data[0]=res[c].getB();
@@ -110,6 +110,8 @@ public class Aprendizaje {
             }
             conti++;
         }
+        Utils u=new Utils();
+        u.displayImage("Resultados",u.toBufferedImage(im));
     }
 
 
