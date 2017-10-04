@@ -1,3 +1,4 @@
+import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 
 import javax.swing.*;
@@ -85,6 +86,29 @@ public class Aprendizaje {
                 //acercar
                 acercar(P[i],C[k],c);
             }
+        }
+    }
+    public void imprimirRespuesta(Colores[] res)
+    {
+        int filas=800/res.length;
+        int col=600/res.length;
+        Mat im=new Mat(800,600, CvType.CV_8UC3);
+        int conti=1,contj=1;
+        for(c=0;c<res.length;c++)
+        {
+            for (int i = c*filas; i < filas*conti; i++)
+            {
+                for (int j = c*col;j<col*contj;j++)
+                {
+                    double data[]=im.get(i,j);
+                    data[0]=res[c].getB();
+                    data[1]=res[c].getG();
+                    data[2]=res[c].getR();
+                    im.put(i,j,data);
+                }
+                contj++;
+            }
+            conti++;
         }
     }
 
