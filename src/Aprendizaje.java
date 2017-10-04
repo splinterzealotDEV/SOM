@@ -23,6 +23,13 @@ public class Aprendizaje {
         this.P=new Colores[N];
         this.C=new Colores[M];
     }
+    public Aprendizaje()
+    {
+        /*this.N=i.rows()*i.cols();
+        this.M=Integer.parseInt(JOptionPane.showInputDialog("Ingresar numero de centroides"));
+        this.P=new Colores[N];
+        this.C=new Colores[M];*/
+    }
     public int distancia(Colores p,Colores c)
     {
         int distancia=0;
@@ -71,7 +78,7 @@ public class Aprendizaje {
             {
                 for(int j=0;i<M;j++)
                 {
-                    d=distancia(P[i],P[j]);
+                    d=distancia(P[i],C[j]);
                     if(j==0)
                     {
                         min = d;

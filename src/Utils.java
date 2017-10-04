@@ -1,4 +1,5 @@
 import org.opencv.core.Mat;
+import org.opencv.imgcodecs.Imgcodecs;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,7 +13,11 @@ public class Utils {
     {
 
     }
-
+    public Mat leerImagen(String ruta)
+    {
+        Mat matriz=Imgcodecs.imread(ruta);
+        return matriz;
+    }
     public Image toBufferedImage(Mat m) {
         int type = BufferedImage.TYPE_BYTE_GRAY;
         if ( m.channels() > 1 ) {
