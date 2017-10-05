@@ -4,8 +4,18 @@ import org.opencv.core.Mat;
 import javax.swing.*;
 
 public class Aprendizaje {
-    private int N=0,M=2,c=12;
+    private int N=0,M=2,c=13;
+
+    public int getN() {
+        return N;
+    }
+
+    public int getM() {
+        return M;
+    }
+
     Colores[] P,C;
+    Mat imagen;
 
     public int getc() {
         return c;
@@ -22,34 +32,32 @@ public class Aprendizaje {
         this.M=Integer.parseInt(JOptionPane.showInputDialog("Ingresar numero de centroides"));
         this.P=new Colores[N];
         this.C=new Colores[M];
+        this.imagen=i;
     }
-    public Aprendizaje()
-    {
-        /*this.N=i.rows()*i.cols();
-        this.M=Integer.parseInt(JOptionPane.showInputDialog("Ingresar numero de centroides"));
-        this.P=new Colores[N];
-        this.C=new Colores[M];*/
-    }
+
     public int distancia(Colores p,Colores c)
     {
         int distancia=0;
-        distancia+=Math.abs(p.R-c.R);
-        distancia+=Math.abs(p.G-c.G);
-        distancia+=Math.abs(p.B-c.B);
+        //System.out.println(p.getR()+"+:"+c.getR());
+        distancia+=Math.abs(p.getR()-c.getR());
+        distancia+=Math.abs(p.getG()-c.getG());
+        distancia+=Math.abs(p.getB()-c.getB());
         return distancia;
     }
     public void acercar(Colores p, Colores c,int itera)
     {
         //acercando cada componente del centroide a el color correspondiente con la proporcion itera
-        c.setR((p.getR()-c.getR())/itera);
-        c.setG((p.getG()-c.getG())/itera);
-        c.setB((p.getB()-c.getB())/itera);
+        c.setR(c.getR()+((p.getR()-c.getR())/itera));
+        c.setG(c.getG()+((p.getG()-c.getG())/itera));
+        c.setB(c.getB()+((p.getB()-c.getB())/itera));
     }
     public void llenarPuntos(Mat img)
     {
         int cont=0;
         int rows = img.rows(); //Calculates number of rows
         int cols = img.cols(); //Calculates number of columns
+        System.out.println("la p: "+getN());
+        System.out.println("LAs filas: "+rows*cols);
         int ch = img.channels(); //Calculates number of channels (Grayscale: 1, RGB: 3, etc.)
 
         for (int i=0; i<rows; i++)
@@ -60,13 +68,12 @@ public class Aprendizaje {
 
                 //porque mlp open cv decodifica BGR
                 //almacenando valores RGB de cada punto segun la imagen
-                this.P[cont].setR((int)data[2]);
-                this.P[cont].setG((int)data[1]);
-                this.P[cont].setB((int)data[0]);
+                this.P[cont]=new Colores((int)data[2],(int)data[1],(int)data[0]);
+                //System.out.println(cont);
                 //img.put(i, j, data); //Puts element back into matrix
             cont++;
             }
-        cont++;
+
         }
     }
     public void aprender()
@@ -74,10 +81,13 @@ public class Aprendizaje {
         int d=0,k=0,min=0;
         for (int c=2;c<getc();c++)
         {
-            for(int i=0;i<N;i++)
+            for(int i=0;i<N-1;i++)
             {
-                for(int j=0;i<M;j++)
+                for(int j=0;j<M;j++)
                 {
+                    //System.out.println("la j"+j);
+                    //System.out.println("lap"+P.length);
+                    //System.out.println("lac"+C.length);
                     d=distancia(P[i],C[j]);
                     if(j==0)
                     {
@@ -119,6 +129,24 @@ public class Aprendizaje {
         }
         Utils u=new Utils();
         u.displayImage("Resultados",u.toBufferedImage(im));
+    }
+
+    public void setC(Colores[] c) {
+        C = c;
+    }
+
+    public Colores[] llenarArrayRndom(Colores[] a)
+    {
+        Colores[] b=a;
+        for(int i=0;i<getM();i++)
+        {
+
+            //System.out.println(i);
+            b[i]=new Colores((int)(Math.random()*255),(int)(Math.random()*255),(int)(Math.random()*255));
+
+        }
+        return b;
+
     }
 
 

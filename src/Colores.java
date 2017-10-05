@@ -6,6 +6,12 @@ public class Colores {
         this.G=g;
         this.B=b;
     }
+    public Colores()
+    {
+        this.R=0;
+        this.G=0;
+        this.B=0;
+    }
 
     public void setR(int r) {
         R = r;

@@ -41,4 +41,13 @@ public class Utils {
         frame.pack();
         frame.setVisible(true);
     }
+    public void imprimircolores(Colores[] arr)
+    {
+        for(int i=0;i<arr.length;i++)
+        {
+            System.out.println(arr[i].getR()+" RED");
+            System.out.println(arr[i].getB()+" BLUE");
+            System.out.println(arr[i].getG()+" GREEN");
+        }
+    }
 }
