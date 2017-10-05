@@ -18,6 +18,12 @@ public class Utils {
         Mat matriz=Imgcodecs.imread(ruta);
         return matriz;
     }
+
+    /**
+     * this method converts a Matrix to an image
+     * @param m a Matrix to convert to image
+     * @return an Image
+     */
     public Image toBufferedImage(Mat m) {
         int type = BufferedImage.TYPE_BYTE_GRAY;
         if ( m.channels() > 1 ) {
@@ -31,6 +37,12 @@ public class Utils {
         System.arraycopy(b, 0, targetPixels, 0, b.length);
         return image;
     }
+
+    /**
+     * this method displays an image in a jframe and set it's title
+     * @param title a string to use as the title
+     * @param img an image to display in the frame
+     */
     public void displayImage(String title, Image img)
     {
         ImageIcon icon=new ImageIcon(img);
@@ -41,6 +53,11 @@ public class Utils {
         frame.pack();
         frame.setVisible(true);
     }
+
+    /**
+     * this method print the RGB values of Color instances stored in an array
+     * @param arr the array of colors
+     */
     public void imprimircolores(Colores[] arr)
     {
         for(int i=0;i<arr.length;i++)

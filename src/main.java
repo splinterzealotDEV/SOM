@@ -6,15 +6,13 @@ import org.opencv.imgcodecs.Imgcodecs;
 
 public class main {
     public static void main(String[] args) {
-        //static{ System.loadLibrary(Core.NATIVE_LIBRARY_NAME);}
+        //necessary to compile the code
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
         Utils u=new Utils();
-        System.out.println(Core.VERSION);
+
+        //reading an image
         Mat mat= Imgcodecs.imread("C:\\Users\\taka\\Pictures\\Wallpaper\\Captura.jpg");
-        Colores[] arr=new Colores[3];
-         arr[0]=new Colores(29,120,255);
-        arr[1]=new Colores(29,255,255);
-        arr[2]=new Colores(255,255,255);
+
         Aprendizaje a=new Aprendizaje(mat);
 
         a.llenarPuntos(mat);
