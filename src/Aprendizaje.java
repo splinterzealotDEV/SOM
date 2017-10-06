@@ -125,7 +125,7 @@ public class Aprendizaje {
                         k=j;
                     }
                     //checking if the current distance is less than the previous
-                    if (d<min)
+                    else if (d<min)
                     {
                         min=d;
                         //store the centroid that is closer

@@ -10,8 +10,7 @@ public class main {
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
         Utils u=new Utils();
 
-        //reading an image
-        Mat mat= Imgcodecs.imread("C:\\Users\\taka\\Pictures\\Wallpaper\\Captura.jpg");
+        Mat mat= Imgcodecs.imread(u.seleccionarImagen());
 
         Aprendizaje a=new Aprendizaje(mat);
 
@@ -24,5 +23,6 @@ public class main {
         u.imprimircolores(a.C);
         a.imprimirRespuesta(a.getC());
         u.displayImage("Imagen",u.toBufferedImage(a.imagen));
+
     }
 }

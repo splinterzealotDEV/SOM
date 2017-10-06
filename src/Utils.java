@@ -2,17 +2,36 @@ import org.opencv.core.Mat;
 import org.opencv.imgcodecs.Imgcodecs;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferByte;
+import java.io.File;
 
-public class Utils {
+public class Utils extends FileFilter{
 
 
     public Utils()
     {
 
     }
+
+    @Override
+    public boolean accept(File f) {
+        if (f.isDirectory()) {
+            return true;
+        } else {
+            return f.getName().toLowerCase().endsWith(".jpg");
+        }
+    }
+
+    @Override
+    public String getDescription() {
+        return "JPEG (*.jpg)";
+    }
+
+
     public Mat leerImagen(String ruta)
     {
         Mat matriz=Imgcodecs.imread(ruta);
@@ -66,5 +85,26 @@ public class Utils {
             System.out.println(arr[i].getB()+" BLUE");
             System.out.println(arr[i].getG()+" GREEN");
         }
+    }
+
+    /**
+     * this method use a Jfilechooser to select a jpg image
+     * @return string with the path to the image
+     */
+    public String seleccionarImagen()
+    {
+        JFileChooser fc = new JFileChooser();
+        fc.setCurrentDirectory(new File(System.getProperty("user.home")));
+       fc.addChoosableFileFilter(new Utils());
+       fc.setAcceptAllFileFilterUsed(true);
+        int result = fc.showOpenDialog(null);
+
+        if (result == JFileChooser.APPROVE_OPTION) {
+
+            File selectedFile = fc.getSelectedFile();
+            //System.out.println("Selected file: " + selectedFile.getAbsolutePath());
+            //System.out.println(fc.getSelectedFile().getAbsolutePath());
+        }
+        return fc.getSelectedFile().getAbsolutePath().replace("\\","\\\\");
     }
 }
