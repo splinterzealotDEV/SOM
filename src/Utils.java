@@ -95,6 +95,7 @@ public class Utils extends FileFilter{
     {
         JFileChooser fc = new JFileChooser();
         fc.setCurrentDirectory(new File(System.getProperty("user.home")));
+        //FileNameExtensionFilter
        fc.addChoosableFileFilter(new Utils());
        fc.setAcceptAllFileFilterUsed(true);
         int result = fc.showOpenDialog(null);
@@ -102,8 +103,7 @@ public class Utils extends FileFilter{
         if (result == JFileChooser.APPROVE_OPTION) {
 
             File selectedFile = fc.getSelectedFile();
-            //System.out.println("Selected file: " + selectedFile.getAbsolutePath());
-            //System.out.println(fc.getSelectedFile().getAbsolutePath());
+
         }
         return fc.getSelectedFile().getAbsolutePath().replace("\\","\\\\");
     }
