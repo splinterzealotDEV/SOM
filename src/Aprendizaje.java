@@ -2,9 +2,20 @@ import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 
 import javax.swing.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Aprendizaje {
+    private List<Colores> listaP=new ArrayList<Colores>();
     private int N=0,M=2,c=13;
+
+    public List<Colores> getListaP() {
+        return listaP;
+    }
+
+    public void setListaP(List<Colores> listaP) {
+        this.listaP = listaP;
+    }
 
     public int getN() {
         return N;
@@ -97,6 +108,49 @@ public class Aprendizaje {
             cont++;
             }
 
+        }
+    }
+
+    /**
+     * this method stores all the pixels from the image in a list and then
+     * store them in the P array randomly
+     * @param img a matrix to reach the pixels from;
+     */
+    public void llenarPuntosAzar(Mat img)
+    {
+        List<Colores> list = new ArrayList<Colores>();
+        int cont=0;
+        int rows = img.rows(); //Calculates number of rows
+        int cols = img.cols(); //Calculates number of columns
+        //System.out.println("la p: "+getN());
+        //System.out.println("LAs filas: "+rows*cols);
+        int ch = img.channels(); //Calculates number of channels (Grayscale: 1, RGB: 3, etc.)
+    //adding all pixels to the list
+        for (int i=0; i<rows; i++)
+        {
+            for (int j=0; j<cols; j++)
+            {
+                double[] data = img.get(i, j); //Stores element in an array
+
+                //pixels are stored in alphabetical order BGR
+                //storing RGB values of each pixel
+               // this.P[cont]=new Colores((int)data[2],(int)data[1],(int)data[0]);
+                list.add(new Colores((int)data[2],(int)data[1],(int)data[0]));
+                //System.out.println(cont);
+                //img.put(i, j, data); //Puts element back into matrix
+                cont++;
+            }
+
+        }
+        //setting the pixel list to list
+        setListaP(list);
+        //storing all pixels in the list randomly
+        for(int k=0;k<cont;k++)
+        {
+            int random=(int)Math.random()*list.size();
+            this.P[k]=list.get(random);
+            //removing each stored pixel from the list
+            list.remove(random);
         }
     }
 
@@ -196,6 +250,19 @@ public class Aprendizaje {
 
         }
         return b;
+
+    }
+    public void llenarCentroidesCubo(Colores[] c)
+    {
+        Colores[] result;
+        int number;
+        double cubic=1/3;
+        double size=c.length;
+        number=(int)Math.ceil(Math.pow(size,cubic));
+        int value=255/number;
+
+
+        //return result;
 
     }
 
