@@ -36,4 +36,9 @@ public class Colores {
     public int getB() {
         return B;
     }
+
+    public String toString()
+    {
+        return "red: "+this.getR()+"green: "+this.getG()+"blue: "+this.getB();
+    }
 }

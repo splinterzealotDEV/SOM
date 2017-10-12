@@ -10,11 +10,13 @@ public class main {
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
         Utils u=new Utils();
 
-        Mat mat= Imgcodecs.imread(u.seleccionarImagen());
+       // Mat mat= Imgcodecs.imread(u.seleccionarImagen());
 
-        Aprendizaje a=new Aprendizaje(mat);
-
-        a.llenarPuntos(mat);
+        Aprendizaje a=new Aprendizaje();
+        Colores[] test=new Colores[19];
+       test=a.llenarCentroidesCubo(test);
+       /* a.llenarPuntos(mat);
+       llenarPuntosAzar()
         a.setC(a.llenarArrayRndom(a.getC()));
         u.imprimircolores(a.C);
         //System.out.println(a.C[0].G);
@@ -23,6 +25,8 @@ public class main {
         u.imprimircolores(a.C);
         a.imprimirRespuesta(a.getC());
         u.displayImage("Imagen",u.toBufferedImage(a.imagen));
+        */
+       //u.imprimircolores(test);
 
     }
 }

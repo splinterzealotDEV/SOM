@@ -50,6 +50,10 @@ public class Aprendizaje {
         this.C=new Colores[M];
         this.imagen=i;
     }
+    public Aprendizaje()
+    {
+
+    }
 
     /**
      * this method calculates the distance(metropoli) using RGB values
@@ -108,6 +112,16 @@ public class Aprendizaje {
             cont++;
             }
 
+        }
+    }
+    public void repintarMatriz(Mat img)
+    {
+        for(int i=0;i<img.rows();i++)
+        {
+            for(int j=0;j<img.cols();j++)
+            {
+
+            }
         }
     }
 
@@ -252,17 +266,53 @@ public class Aprendizaje {
         return b;
 
     }
-    public void llenarCentroidesCubo(Colores[] c)
+
+    /**
+     * divides the RGB cube in smaller cubes and fill each centroid wth values that satisfy those smaller cubes
+     * @param c a array with the to get the number of centroids
+     * @return a array with the required number of centroids
+     */
+    public Colores[] llenarCentroidesCubo(Colores[] c)
     {
+        System.out.println(c.length);
         Colores[] result;
+        int cont=0;
         int number;
-        double cubic=1/3;
+        double cubic=0.33333333333;
+        System.out.println(cubic);
         double size=c.length;
         number=(int)Math.ceil(Math.pow(size,cubic));
+        System.out.println("number "+number);
         int value=255/number;
+        System.out.println("value "+value);
+        result=new Colores[c.length];
+        //int conti=1,contj=1,contk=1;
+        for(int i=1;i<number+1;i++)
+        {
+            for(int j=1;j<number+1;j++)
+            {
+                for(int k=1;k<number+1;k++)
+                {
+                    if(cont>=c.length)
+                    {
+                        //System.out.println("entro");
+                        break;
+                    }
+                    result[cont]=new Colores((int)(((value*(i-1))+Math.random()*(value))),(int)(((value*(j-1))+Math.random()*(value))),(int)(((value*(k-1))+Math.random()*(value))));
 
 
-        //return result;
+                    cont++;
+
+
+
+                }
+
+            }
+
+        }
+
+
+        return result;
 
     }
 
