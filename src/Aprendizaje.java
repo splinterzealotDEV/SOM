@@ -29,6 +29,10 @@ public class Aprendizaje {
     //Matrix to store image
     Mat imagen;
 
+    public Mat getImagen() {
+        return imagen;
+    }
+
     public int getc() {
         return c;
     }
@@ -161,7 +165,7 @@ public class Aprendizaje {
         //storing all pixels in the list randomly
         for(int k=0;k<cont;k++)
         {
-            int random=(int)Math.random()*list.size();
+            int random=(int)(Math.random()*list.size());
             this.P[k]=list.get(random);
             //removing each stored pixel from the list
             list.remove(random);
