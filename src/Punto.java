@@ -82,5 +82,9 @@ public class Punto {
         return (int)Math.sqrt(Math.pow(x,2)+Math.pow(y,2));
 
     }
+    public void acercar(Punto centroide,Punto punto){
+        centroide.setX(centroide.getX()-punto.getX());
+        centroide.setY(centroide.getY()-punto.getY());
+    }
 
 }
