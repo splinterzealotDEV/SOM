@@ -80,6 +80,7 @@ public class Punto {
         double x=a.getX()-b.getX();
         double y=a.getY()-b.getY();
         return (int)Math.sqrt(Math.pow(x,2)+Math.pow(y,2));
+
     }
 
 }
