@@ -11,7 +11,7 @@ public class main {
         Utils u=new Utils();
 
        Mat mat= Imgcodecs.imread(u.seleccionarImagen());
-
+        long time=System.currentTimeMillis();
         Aprendizaje a=new Aprendizaje(mat);
         Colores[] test=new Colores[19];
        //test=a.llenarCentroidesCubo(test);
@@ -24,6 +24,7 @@ public class main {
         a.aprender();
         u.imprimircolores(a.C);
         a.imprimirRespuesta(a.getC());
+        System.out.println(System.currentTimeMillis()-time);
         u.displayImage("Imagen",u.toBufferedImage(a.imagen));
         Funcionamiento f=new Funcionamiento();
         f.pintarMatrizCentroides(a.getImagen(),a.getC());
