@@ -77,14 +77,19 @@ public class Punto {
         return calcularDistancia(pmayor,pmenor)/2;
     }
     public int calcularDistancia(Punto a,Punto b){
-        double x=a.getX()-b.getX();
-        double y=a.getY()-b.getY();
-        return (int)Math.sqrt(Math.pow(x,2)+Math.pow(y,2));
+        double x=Math.abs(a.getX()-b.getX());
+        double y=Math.abs(a.getY()-b.getY());
+        return (int)(x+y);
 
     }
-    public void acercar(Punto centroide,Punto punto){
-        centroide.setX(centroide.getX()-punto.getX());
-        centroide.setY(centroide.getY()-punto.getY());
+    public void acercar(Punto centroide,Punto punto,int itera){
+        centroide.setX(centroide.getX()+(centroide.getX()-punto.getX())/itera);
+        centroide.setY(centroide.getY()+(centroide.getY()-punto.getY())/itera);
+    }
+    public void ponerCentroides(Punto[] centroides)
+    {
+        double theta=(2*Math.PI)/centroides.length;
+        
     }
 
 }
