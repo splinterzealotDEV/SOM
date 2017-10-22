@@ -86,9 +86,13 @@ public class Punto {
         centroide.setX(centroide.getX()+(centroide.getX()-punto.getX())/itera);
         centroide.setY(centroide.getY()+(centroide.getY()-punto.getY())/itera);
     }
-    public void ponerCentroides(Punto[] centroides)
+    public void ponerCentroides(Punto[] centroides, Punto centro, int radio)
     {
         double theta=(2*Math.PI)/centroides.length;
+        for(int i=0;i<centroides.length;i++){
+            centroides[i].setX((int)(centro.getX()+(radio*Math.cos(theta*i))));
+            centroides[i].setY((int)(centro.getY()+(radio*Math.sin(theta*i))));
+        }
         
     }
 
