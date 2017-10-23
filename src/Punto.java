@@ -1,7 +1,20 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class Punto {
     private int x=0;
     private int y=0;
     private int c=12;
+    static int id =0;
+    private int sid=0;
+
+    public int getSid() {
+        return sid;
+    }
+
+    public static int getId() {
+        return id;
+    }
 
     public int getC() {
         return c;
@@ -10,10 +23,14 @@ public class Punto {
     public Punto(int x, int y){
         this.x=x;
         this.y=y;
+        this.sid=id;
+        id++;
     }
     public Punto(){
         this.x=0;
         this.y=0;
+        this.sid=id;
+        id++;
     }
 
     public void setX(int x) {
@@ -38,10 +55,11 @@ public class Punto {
      * @param p array of 2D points with X and Y coordinates
      * @return an array of size positions where the first one contains the x average and the second one contains the y average
      */
-    public int[] calcularCentro(Punto[] p){
+    public Punto calcularCentro(Punto[] p){
         int sumax=0;
         int sumay=0;
-        int[] result=new int[2];
+
+        //int[] result=new int[2];
         for(int i=0;i<p.length;i++){
             //summation of x
             sumax+=p[i].getX();
@@ -49,9 +67,11 @@ public class Punto {
             sumay+=p[i].getY();
         }
         //getting average of x and y
-        result[0]=sumax/p.length;
-        result[1]=sumay/p.length;
-        return result;
+        //result[0]=sumax/p.length;
+        //result[1]=sumay/p.length;
+        Punto resultado=new Punto(sumax/p.length,sumay/p.length);
+
+        return resultado;
     }
     public int calcularRadio(Punto p,Punto[] arr){
         int distancia=0;
@@ -89,22 +109,25 @@ public class Punto {
 
     }
     public void acercar(Punto centroide,Punto punto,int itera){
-        centroide.setX(centroide.getX()+(centroide.getX()-punto.getX())/itera);
-        centroide.setY(centroide.getY()+(centroide.getY()-punto.getY())/itera);
+        //System.out.println(centroide.getX());
+        //System.out.println("P: "+(centroide.getX()+((centroide.getX()-punto.getX())/itera)));
+        centroide.setX(centroide.getX()+((centroide.getX()-punto.getX())/itera));
+        centroide.setY(centroide.getY()+((centroide.getY()-punto.getY())/itera));
+        //System.out.println(centroide.getX());
     }
-    public void ponerCentroides(Punto[] centroides, Punto centro, int radio)
+    public Punto[] ponerCentroides(Punto[] centroides, Punto centro, int radio)
     {
         double theta=(2*Math.PI)/centroides.length;
         for(int i=0;i<centroides.length;i++){
             centroides[i].setX((int)(centro.getX()+(radio*Math.cos(theta*i))));
             centroides[i].setY((int)(centro.getY()+(radio*Math.sin(theta*i))));
         }
-        
+        return centroides;
     }
     public Punto[] llenarPuntos(Punto[] p)
     {
         for(int i=0;i<p.length;i++){
-            p[i]=new Punto((int)(Math.random()*500),(int)(Math.random()*500));
+            p[i]=new Punto((int)(Math.random()*200),(int)(Math.random()*200));
         }
         return p;
     }
@@ -131,6 +154,7 @@ public class Punto {
                     if(j==0)
                     {
                         min = d;
+                        //System.out.println("el minimo1: "+min);
                         k=j;
                     }
                     //checking if the current distance is less than the previous
@@ -142,8 +166,46 @@ public class Punto {
                     }
                 }
                 //pulling the centroid
-                acercar(P[i],C[k],c);
+               // System.out.println("acercando centroide : "+k);
+                acercar(C[k],P[i],c);
             }
+        }
+    }
+    public void encontrarRuta(Punto[] centroids)
+    {
+        int d=0,min=0,index=0,cont=0,aux=0;
+        Punto temp=new Punto();
+        List<Punto> list=new ArrayList<Punto>();
+        for(Punto p:centroids){
+            list.add(p);
+        }
+        while(!list.isEmpty())
+        {
+            if(cont==0)
+            {
+                temp=list.get(cont);
+                list.remove(cont);
+            }
+            for(int i=0;i<list.size();i++)
+            {
+                d=calcularDistancia(temp,list.get(i));
+                if(i==0)
+                {
+                    min=d;
+                    index=i;
+                }
+                else if(d<min)
+                {
+                    min=d;
+                    index=i;
+                }
+            }
+
+            System.out.println(temp.getSid()+","+list.get(index).getSid());
+            aux=index;
+            temp=list.get(index);
+            list.remove(index);
+            cont++;
         }
     }
 
