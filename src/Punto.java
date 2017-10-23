@@ -1,7 +1,13 @@
 public class Punto {
     private int x=0;
     private int y=0;
-    public Punto(int x,int y){
+    private int c=12;
+
+    public int getC() {
+        return c;
+    }
+
+    public Punto(int x, int y){
         this.x=x;
         this.y=y;
     }
@@ -94,6 +100,51 @@ public class Punto {
             centroides[i].setY((int)(centro.getY()+(radio*Math.sin(theta*i))));
         }
         
+    }
+    public Punto[] llenarPuntos(Punto[] p)
+    {
+        for(int i=0;i<p.length;i++){
+            p[i]=new Punto((int)(Math.random()*500),(int)(Math.random()*500));
+        }
+        return p;
+    }
+    public void imprimir(Punto[] p)
+    {
+        for(int i=0;i<p.length;i++){
+            System.out.println(i+"X: ,"+p[i].getX()+"Y: "+p[i].getY());
+        }
+    }
+    public void aprender(Punto[] P,Punto[] C)
+    {
+        int d=0,k=0,min=0;
+        //each iteration reduce the pull "strength"
+        for (int c=2;c<getC();c++)
+        {
+            //iterating all the pixels stored in the P array
+            for(int i=0;i<P.length;i++)
+            {
+                //iterating all the centroids
+                for(int j=0;j<C.length;j++)
+                {
+
+                    d=calcularDistancia(P[i],C[j]);
+                    if(j==0)
+                    {
+                        min = d;
+                        k=j;
+                    }
+                    //checking if the current distance is less than the previous
+                    else if (d<min)
+                    {
+                        min=d;
+                        //store the centroid that is closer
+                        k=j;
+                    }
+                }
+                //pulling the centroid
+                acercar(P[i],C[k],c);
+            }
+        }
     }
 
 }
